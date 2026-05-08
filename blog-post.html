@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机游走的常返性 - 个人主页</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">My Portfolio</div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="index.html#about">个人介绍</a></li>
+                <li><a href="index.html#projects">项目</a></li>
+                <li><a href="blog.html">博客</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="blog-post">
+<article class="post-content">
+                <h1>随机游走的常返性：醉汉与醉鸟能否归家？</h1>
+                <p class="blog-meta">发布时间: 2026-05-06 | 分类: 概率论</p>
+                <div class="post-body">
+<p class="abstract"><strong>关键词：</strong>随机游走、常返性、随机级数、扩散过程</p>
+
+                    <h2>前言</h2>
+                    <p>几天前的凌晨，某人在b站上刷到了一个关于随机游走的视频，但他忘了常返性怎么证明，而视频里也没有提到，遂作此。</p>
+                    <p>想象这样一个场景：一只鸟在三维天空中随机飞行，它能否回到原点？二维平面上的醉汉最终能否找到回家的路？这些问题看似直观，却蕴含着概率论中一个优雅而深刻的结论——<strong>拥有更多的选择也意味着更容易迷茫。</strong>。</p>
+                    <p>本文将从数学推导出发，系统分析一维、二维和三维对称随机游走的常返性。</p>
+
+                    <h2>1. 引言</h2>
+                    <p>设 \(\{S_n\}_{n\ge 0}\) 是定义在 \(\mathbb{Z}^d\) 上的简单对称随机游走，即：</p>
+                    <ul>
+                        <li>\(S_0 = 0\)</li>
+                        <li>对每个 \(n\ge 1\)，\(S_n = X_1 + \cdots + X_n\)，其中 \(\{X_i\}_{i\ge 1}\) i.i.d.</li>
+                        <li>\(P(X_i = e_j) = \frac{1}{2d}\)，其中 \(e_j\) 是 \(\mathbb{Z}^d\) 中的单位坐标向量，\(j = 1,\dots,d\)</li>
+                    </ul>
+                    <p>本文要回答的核心问题是：</p>
+                    <p class="highlight"><strong>随机游走是否以概率 1 无限次返回到原点？</strong></p>
+                    <p>该性质称为<strong>常返性</strong>（recurrence）；反之称为<strong>暂态性</strong>（transience）。1921 年，Pólya 给出了完整的维数判别：</p>
+                    <ul>
+                        <li>\(d = 1, 2\)：常返</li>
+                        <li>\(d \ge 3\)：暂态</li>
+                    </ul>
+
+                    <h2>2. 常返性的判别准则</h2>
+                    <p>设 \(u_n = P(S_n = 0)\) 表示第 \(n\) 步时回到原点的概率。定义示性变量 \(I_n = \mathbf{1}_{\{S_n = 0\}}\)，则回到原点的总次数为 \(N = \sum_{n=0}^\infty I_n\)。</p>
+                    <p>由 Markov 性可得一个关键判别法：</p>
+                    <p class="lemma"><strong>引理（期望与常返的关系）：</strong>\(\mathbb{E}[N] = \sum_{n=0}^\infty u_n\)</p>
+                    <ul>
+                        <li>若 \(\sum_{n=0}^\infty u_n = \infty\)，则 \(P(\text{无限次返回}) = 1\)（常返）</li>
+                        <li>若 \(\sum_{n=0}^\infty u_n < \infty\)，则 \(P(\text{无限次返回}) = 0\)，且 \(\mathbb{E}[N] < \infty\)（暂态）</li>
+                    </ul>
+                    <p>因此，问题归结为估计 \(u_n\) 的渐近行为。</p>
+
+                    <h2>3. 一维情形 (\(d=1\))</h2>
+                    <p>在 \(\mathbb{Z}\) 上，每一步 \(\Delta S = \pm 1\) 等概率。经过 \(n\) 步后回到原点要求 \(n\) 为偶数且正负步数相等：</p>
+                    <p>\[
+u_{2n} = \binom{2n}{n} \left(\frac12\right)^{2n},\quad u_{2n+1} = 0
+\]</p>
+                    <p>使用 Stirling 公式：\(n! \sim \sqrt{2\pi n}\left(\frac{n}{e}\right)^n\)，可得</p>
+                    <p>\[
+u_{2n} \sim \frac{1}{\sqrt{\pi n}}
+\]</p>
+                    <p>于是 \(\sum_{n=0}^\infty u_{2n} \sim \sum_{n=1}^\infty \frac{1}{\sqrt{\pi n}} = \infty\)</p>
+                    <p><strong>因此一维简单随机游走常返。</strong></p>
+
+                    <h2>4. 二维情形 (\(d=2\))</h2>
+                    <p>在 \(\mathbb{Z}^2\) 上，每一步从四个方向均匀选取：\((1,0), (-1,0), (0,1), (0,-1)\)。</p>
+                    <p>在第 \(n\) 步回到原点要求 \(X\) 方向净位移为 0 且 \(Y\) 方向净位移为 0，且 \(n\) 为偶数。</p>
+                    <p>使用二项式恒等式：\[
+u_{2m} = \left( \frac{1}{4^{2m}} \binom{2m}{m} \right)^2
+\]</p>
+                    <p>因为两个坐标独立，且每个坐标的一维返回概率如上。因此：</p>
+                    <p>\[
+u_{2m} \sim \frac{1}{\pi m}
+\]</p>
+                    <p><strong>二维随机游走常返。</strong></p>
+
+                    <h2>5. 三维情形 (\(d=3\))</h2>
+                    <p>在 \(\mathbb{Z}^3\) 上，每一步有 6 个方向：\((\pm1,0,0), (0,\pm1,0), (0,0,\pm1)\)。</p>
+                    <p>回到原点要求三个坐标净位移均为 0。步数 \(n = 2m\) 为偶数。</p>
+                    <p>由多维局部极限定理：</p>
+                    <p>\[
+u_n \sim \left( \frac{d}{2\pi n} \right)^{d/2}
+\]</p>
+                    <p>验证：</p>
+                    <ul>
+                        <li>\(d=1\)：\(u_n \sim \left( \frac{1}{2\pi n} \right)^{1/2}\)</li>
+                        <li>\(d=2\)：\(u_n \sim \frac{1}{2\pi n}\)</li>
+                        <li>\(d=3\)：\(u_n \sim \left( \frac{3}{2\pi n} \right)^{3/2} = O(n^{-3/2})\)</li>
+                    </ul>
+                    <p>此时：</p>
+                    <p>\[
+\sum_{n=1}^\infty u_n \sim C \sum_{n=1}^\infty n^{-3/2} < \infty
+\]</p>
+                    <p>因为 \(3/2 > 1\)。因此<strong>三维随机游走暂态</strong>。</p>
+
+                    <h2>6. 严格证明的轮廓（Pólya 定理）</h2>
+                    <p>更严谨的证明需要：</p>
+                    <ol>
+                        <li>用 Fourier 分析写出返回概率：\[
+u_n = \frac{1}{(2\pi)^d} \int_{[-\pi,\pi]^d} \left( \frac{1}{d} \sum_{j=1}^d \cos \theta_j \right)^n d\theta_1\cdots d\theta_d
+\]</li>
+                        <li>分析积分在 \(\theta=0\) 附近的渐近：\[
+\frac{1}{d} \sum \cos \theta_j \approx 1 - \frac{|\theta|^2}{2d}
+\]</li>
+                        <li>于是积分渐近于 \[
+\int_{\mathbb{R}^d} e^{-n|\theta|^2/(2d)} d\theta \sim (2\pi d/n)^{d/2}
+\]</li>
+                        <li>因此 \(u_n \approx C_d n^{-d/2}\)</li>
+                        <li>级数 \(\sum n^{-d/2}\) 收敛当且仅当 \(d/2 > 1\)，即 \(d > 2\)</li>
+                    </ol>
+
+                    <h2>7. 直观解释与物理类比</h2>
+                    <p>直观理解：</p>
+                    <ul>
+                        <li>\(n\) 步后均方根位移 \(\sim \sqrt{n}\)</li>
+                        <li>可达区域的"体积"在 \(d\) 维中是 \(O(n^{d/2})\)</li>
+                        <li>随机游走的"足迹"数（不同位置的数量）\(\sim n\)</li>
+                        <li>若 \(n^{d/2}\) 增长快于 \(n\)（即 \(d > 2\)），则足迹会越来越稀疏，新的空间永远存在，无须返回原点</li>
+                        <li>临界情况 \(d=2\) 时，足迹密度趋于常数，但实际证明仍是常返</li>
+                    </ul>
+
+                    <h2>8. 结论</h2>
+                    <table class="conclusion-table">
+                        <tr><th>维度</th><th>\(u_n\) 渐近</th><th>\(\sum u_n\)</th><th>常返性</th></tr>
+                        <tr><td>1</td><td>\(n^{-1/2}\)</td><td>发散</td><td>常返</td></tr>
+                        <tr><td>2</td><td>\(n^{-1}\)</td><td>发散</td><td>常返</td></tr>
+                        <tr><td>3+</td><td>\(n^{-d/2}\)</td><td>收敛（若 \(d>2\)）</td><td>暂态</td></tr>
+                    </table>
+                    <p>这一结果展示了随机过程中维数的关键作用：<strong>维数 2 是常返性的临界点</strong>。在数学上，它来源于随机游走协方差矩阵的特征值；在物理上，它与扩散方程的基本解在二维和三维的不同衰减有关。</p>
+                </div>
+                <a href="blog.html" class="btn">返回博客列表</a>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 个人主页. All rights reserved.</p>
+    </footer>
+</body>
+</html>
